@@ -1,3 +1,24 @@
+## 26512 beta
+
+### Changelog
+- Fixed playhead lagging behind trigs
+- Fixed LIVE REC mode not respecting track loop length, speed and wrap
+- Fixed FUNC+PAGE not opening TRACK SETUP window while in LIVE REC mode
+- Added FUNC+CLEAR/COPY/PASTE/UNDO to PATTERN SETUP window
+- Added UNDO to actions that affect TRACK SETUP params
+- CLEAR PATTERN now clears TRACK SETUP and PATTERN SETUP params
+- Fixed new SysEx command IDs colliding with stock status commands. It was necessary to move some of the new SysEx commands:
+```
+Updated commands:
+
+Track select:           F0 00 20 3C 03 00 66 <idx> F7
+
+Dump current global:    F0 00 20 3C 03 00 62 00 F7
+Dump global:            F0 00 20 3C 03 00 62 01 <idx> F7
+Dump global range:      F0 00 20 3C 03 00 62 02 <idx> <bank> F7
+Restore global:         F0 00 20 3C 03 00 63 <idx> 01 <data> F7
+```
+
 ## 26510 beta
 
 ### Changelog
