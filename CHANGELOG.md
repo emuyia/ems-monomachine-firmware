@@ -1,3 +1,28 @@
+## 26711 beta
+
+### Changelog
+
+- CONTROL ALL now works with the LEV parameter
+- SPP now respects per-track loop lengths, speeds, and WRAP AFTER setting, including in SONG mode
+- Fixed not being able to edit trig conditions while in STEP REC (mode 1)
+- Fixed transpose not applying on a pasted track or pasted melody during playback
+- Fixed FUNC+LEFT/RIGHT not shifting condition data with trigs
+- Fixed SysEx track selection not refreshing source track in POLY mode
+- Fixed stock bug where notes in POLY mode get stuck after various actions (changing track, pattern, etc.)
+- Fixed stock bug where PASTE>UNDO TRANSPOSE does not work
+- Fixed stock bug where muting a track that is being triggered by another track, and then unmuting it, causes trigs that were muted during that time to remain muted later
+- Fixed stock bug where muting a track that is being triggered by another track would not mute its active ARP sequence
+- Fixed stock bug where the playhead is not shown for the initial step triggered by SPP
+- Fixed LIVE REC mode not respecting track loop length, speed and wrap when inputting from external MIDI, or when CONTROL OUT 1 > KEYBOARD is set to INT
+- Fixed FUNC+LEFT/RIGHT sometimes resurrecting deleted/off-length trigs after reboot or pattern load when shifting tracks with loop lengths longer than 16 steps
+- Fixed UNDO PATTERN not restoring track & pattern setup values consistently
+- Fixed LEV value preview appearing in SWING SETUP
+- Fixed stock SONG MODE row-loop trick regression, so that selected row OF/LN loops continue after returning to pattern mode
+- Fixed hidden stock SCALE speed sometimes causing tracks set to 1x to double-trigger
+- Fixed POLY mode track LED blinking not working when using internal or external keyboard
+- Fixed POLY mode current track LED always blinking despite not being allocated a voice
+- Fixed off-length locks blinking on the trig LEDs after shortening a track
+- Cleaned up unused ext data migration code
 
 ## 26531 beta
 
