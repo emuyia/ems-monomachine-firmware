@@ -1,27 +1,49 @@
+## 26719 beta
+
+### Changelog
+
+- Various optimisations across the board - will likely introduce regressions
+- Fixed pasting MELODY to MIDI track causing pages 3 and 4 to fill with trigs ([#21](../../issues/21))
+- Fixed switching POLY mode on/off during playback causing audio to stop
+- Fixed PATTERN mode sometimes inheriting SONG row lengths and restarting early after leaving SONG mode ([#30](../../issues/30))
+- Fixed note tails of previously selected POLY tracks switching their synth/machine source to the newly selected POLY track, where they should retain their own (26711-beta regression)
+- Fixed track LED blink sometimes staying off when clearing a pattern ([#29](../../issues/29))
+- Fixed issue where adjusting track setup or pattern setup values with LEV after previously using LEV for something else would cause the value to change in the opposite direction for one step ([#32](../../issues/32))
+- Fixed pattern setup parameter values not updating on pattern changes ([#34](../../issues/34))
+- Fixed issue where adjusting pattern setup parameters would become stuck in one direction after a pattern change ([#34](../../issues/34))
+- Fixed incorrect playhead position after disabling SONG mode, or after transitioning to a row ([#23](../../issues/23))
+- Fixed playhead reaching one step past the OF/LN range in SONG mode while track is set to 2x or 3/2x speed
+- Fixed the UNDO actions for both NOTE LOCKS and TRIG COND being armed by clearing one of either
+- Fixed PASTE>UNDO NOTE not undoing the trig condition
+- 'PATTERN STP' has been changed to 'PTTRN SETUP'
+- You can now set audio routing while in POLY mode ([#22](../../issues/22))
+- Navigation between columns in expanded super menus is now done with left/right arrow
+- LEV value preview is now permanently displayed while in SONG mode
+
 ## 26711 beta
 
 ### Changelog
 
 - CONTROL ALL now works with the LEV parameter
-- SPP now respects per-track loop lengths, speeds, and WRAP AFTER setting, including in SONG mode
+- SPP now respects per-track loop lengths, speeds, and WRAP AFTER setting, including in SONG mode ([#19](../../issues/19))
 - Fixed not being able to edit trig conditions while in STEP REC (mode 1)
-- Fixed transpose not applying on a pasted track or pasted melody during playback
+- Fixed transpose not applying on a pasted track or pasted melody during playback ([#4](../../issues/4))
 - Fixed FUNC+LEFT/RIGHT not shifting condition data with trigs
 - Fixed SysEx track selection not refreshing source track in POLY mode
 - Fixed stock bug where notes in POLY mode get stuck after various actions (changing track, pattern, etc.)
 - Fixed stock bug where PASTE>UNDO TRANSPOSE does not work
 - Fixed stock bug where muting a track that is being triggered by another track, and then unmuting it, causes trigs that were muted during that time to remain muted later
-- Fixed stock bug where muting a track that is being triggered by another track would not mute its active ARP sequence
+- Fixed stock bug where muting a track that is being triggered by another track would not mute its active ARP sequence ([#18](../../issues/18))
 - Fixed stock bug where the playhead is not shown for the initial step triggered by SPP
-- Fixed LIVE REC mode not respecting track loop length, speed and wrap when inputting from external MIDI, or when CONTROL OUT 1 > KEYBOARD is set to INT
-- Fixed FUNC+LEFT/RIGHT sometimes resurrecting deleted/off-length trigs after reboot or pattern load when shifting tracks with loop lengths longer than 16 steps
+- Fixed LIVE REC mode not respecting track loop length, speed and wrap when inputting from external MIDI, or when CONTROL OUT 1 > KEYBOARD is set to INT ([#20](../../issues/20))
+- Fixed FUNC+LEFT/RIGHT sometimes resurrecting deleted/off-length trigs after reboot or pattern load when shifting tracks with loop lengths longer than 16 steps ([#6](../../issues/6))
 - Fixed UNDO PATTERN not restoring track & pattern setup values consistently
 - Fixed LEV value preview appearing in SWING SETUP
 - Fixed stock SONG MODE row-loop trick regression, so that selected row OF/LN loops continue after returning to pattern mode
-- Fixed hidden stock SCALE speed sometimes causing tracks set to 1x to double-trigger
+- Fixed hidden stock SCALE speed sometimes causing tracks set to 1x to double-trigger ([#14](../../issues/14))
 - Fixed POLY mode track LED blinking not working when using internal or external keyboard
 - Fixed POLY mode current track LED always blinking despite not being allocated a voice
-- Fixed off-length locks blinking on the trig LEDs after shortening a track
+- Fixed off-length locks blinking on the trig LEDs after shortening a track ([#15](../../issues/15))
 - Cleaned up unused ext data migration code
 
 ## 26531 beta
@@ -39,8 +61,8 @@
   - Existing condition data is migrated on boot, snapshot load, and SysEx receive. During migration, conditions are kept only up to the new 64 condition limit. As always, if any data is critical, make sure to back it up first.
 - Added TRIG + (click) LEV to clear a trig condition
 - Fixed CONDITION data not sticking on trigless trigs, note off, FILTER or LFO trigs
-- Fixed Lx / !Lx and one-shot trig conditions breaking when WRAP AFTER = INF
-- Fixed Lx / !Lx and one-shot trig conditions using stale or incorrect cycle state in some cases
+- Fixed Lx / !Lx and one-shot trig conditions breaking when WRAP AFTER = INF ([#2](../../issues/2))
+- Fixed Lx / !Lx and one-shot trig conditions using stale or incorrect cycle state in some cases ([#2](../../issues/2))
 - Fixed multi trig TRIG POS not respecting trig conditions
 - Fixed trig conditions on step 1 not applying directly after pattern change
 
@@ -84,7 +106,7 @@
 - Track LED blinking now occurs from any source - external MIDI, trig buttons, multi trig, trig pos, etc. This includes muted tracks that are externally triggered (yellow blink)
 - Fixed FUNC+LEFT/RIGHT only shifting trigs within the first page
 - Fixed song mode not adhering to per-track loop lengths & wrap after value
-- Fixed external MIDI input to set notes not working when speed is not 1x
+- Fixed external MIDI input to set notes not working when speed is not 1x ([#3](../../issues/3))
 - Fixed SYSEX RECV crashing on receiving ext data backups
 - Fixed ext data syx backups being loaded into empty patterns or trigs
 - Fixed a lockup caused by CONTROL ALL under heavy use
