@@ -1,3 +1,24 @@
+## 26719 beta
+
+### Changelog
+
+- Fixed pasting MELODY to MIDI track causing pages 3 and 4 to fill with trigs (26711-beta regression)
+- Fixed switching POLY mode on/off during playback causing audio to stop (26711-beta regression)
+- Fixed note tails of previously selected POLY tracks switching their synth/machine source to the newly selected POLY track, where they should retain their own (26711-beta regression)
+- Fixed track LED sometimes staying off when clearing a pattern
+- Fixed issue where adjusting track setup or pattern setup values with LEV after previously using LEV for something else would cause the value to change in the opposite direction for one step
+- Fixed pattern setup parameter values not updating on pattern changes
+- Fixed issue where adjusting pattern setup parameters would become stuck in one direction after a pattern change
+- Fixed incorrect playhead position after disabling SONG mode, or after transitioning to a row
+- Fixed playhead reaching one step past the OF/LN range in SONG mode while track is set to 2x or 3/2x speed
+- Fixed the UNDO actions for both NOTE LOCKS and TRIG COND being armed by clearing one of either
+- Fixed PASTE>UNDO NOTE not undoing the trig condition
+- 'PATTERN STP' has been changed to 'PTTRN SETUP'
+- You can now set audio routing while in POLY mode
+- Navigation between columns in expanded super menus is now done with left/right arrow
+- LEV value preview is now permanently displayed while in SONG mode
+- Various optimisations across the board (will likely introduce regressions)
+
 ## 26711 beta
 
 ### Changelog
