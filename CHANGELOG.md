@@ -6,7 +6,7 @@
 - Fixed pasting MELODY to MIDI track causing pages 3 and 4 to fill with trigs ([#21](../../issues/21))
 - Fixed switching POLY mode on/off during playback causing audio to stop
 - Fixed PATTERN mode sometimes inheriting SONG row lengths and restarting early after leaving SONG mode ([#30](../../issues/30))
-- Fixed note tails of previously selected POLY tracks switching their synth/machine source to the newly selected POLY track, where they should retain their own (26711-beta regression)
+- Fixed note tails of previously selected POLY tracks switching their synth/machine source to the newly selected POLY track, where they should retain their own
 - Fixed track LED blink sometimes staying off when clearing a pattern ([#29](../../issues/29))
 - Fixed issue where adjusting track setup or pattern setup values with LEV after previously using LEV for something else would cause the value to change in the opposite direction for one step ([#32](../../issues/32))
 - Fixed pattern setup parameter values not updating on pattern changes ([#34](../../issues/34))
@@ -15,16 +15,16 @@
 - Fixed playhead reaching one step past the OF/LN range in SONG mode while track is set to 2x or 3/2x speed
 - Fixed the UNDO actions for both NOTE LOCKS and TRIG COND being armed by clearing one of either
 - Fixed PASTE>UNDO NOTE not undoing the trig condition
-- 'PATTERN STP' has been changed to 'PTTRN SETUP'
+- 'PATTERN STP' has been changed to 'PTTRN SETUP' ([#43](../../discussions/43))
 - You can now set audio routing while in POLY mode ([#22](../../issues/22))
-- Navigation between columns in expanded super menus is now done with left/right arrow
+- Navigation between columns in expanded super menus is now done with left/right arrow ([#47](../../discussions/47))
 - LEV value preview is now permanently displayed while in SONG mode
 
 ## 26711 beta
 
 ### Changelog
 
-- CONTROL ALL now works with the LEV parameter
+- CONTROL ALL now works with the LEV parameter ([#5](../../issues/5))
 - SPP now respects per-track loop lengths, speeds, and WRAP AFTER setting, including in SONG mode ([#19](../../issues/19))
 - Fixed not being able to edit trig conditions while in STEP REC (mode 1)
 - Fixed transpose not applying on a pasted track or pasted melody during playback ([#4](../../issues/4))
