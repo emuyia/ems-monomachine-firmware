@@ -1,3 +1,10 @@
+## 26725 beta (hotfix)
+
+### Changelog
+
+- Fixed SYSEX SEND sometimes truncating extended data messages at TURBO MIDI speeds
+- Added validation to extended data during SYSEX RECV
+
 ## 26725 beta
 
 ### Changelog
