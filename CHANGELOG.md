@@ -1,3 +1,25 @@
+## 26725 beta
+
+### Changelog
+
+- SYSEX SEND > ALL, PAT+KIT, SONG+P+K and GLOBAL now include extended data as part of the sysex backup. Stock data remains backward compatible: restoring a backup made with the custom firmware onto stock 1.32B will simply discard the extended data messages at the end of the backup
+- SONG row parameters OF & LN have been extended past the 64 step limit to 512 steps in order to acommodate track lengths & speeds ([#42](../../discussions/42))
+  - You can adjust OF & LN by 16 steps at a time with FUNC + LEV
+  - Column width for OF & LN, and other SONG mode fields, have been adjusted to acommodate triple digits
+  - OF, LN & XTR have been changed to 'OFS', 'LEN' and 'X'
+- Fixed SYSEX RECV > SPEC not working for ext data backups
+- Fixed pasting transpose while transpose panel is open not updating LEV position for the new transpose value
+- Fixed regression where causing transpose changes during playback would mute tracks that have legato turned off
+- Fixed stock bug where switching POLY mode on/off during playback could mute tracks when MULTI ENV > SUS is set to 0 ([#51](../../issues/51))
+- Fixed stock bug where MULTI ENV parameter changes would not persist while POLY mode is active
+- Entering or exiting EDIT mode (REC) now switches between PATTERN SETUP and TRACK SETUP without closing the window ([#43](../../discussions/43))
+- CHAIN AFTER can now be adjusted 16 steps at a time with FUNC + LEV
+- Fixed playhead in wrong position for the first step of a pattern when CHAIN AFTER is not a multiple of 16 ([#52](../../issues/52))
+- Fixed editing SONG row parameters during playback causing values to jump after transitions between patterns assigned to different kits ([#23](../../issues/23))
+- Fixed stock bug where CLEAR>UNDO SONG ROW does not work
+- Fixed stock bug where CLEAR SONG ROW does not clear transpose data that contains per-track transpose values
+- Fixed ext data not being reset when creating a new snapshot or when performing an EMPTY RESET
+
 ## 26719 beta
 
 ### Changelog
