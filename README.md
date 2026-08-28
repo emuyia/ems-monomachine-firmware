@@ -2,7 +2,7 @@
 
 1. ****Please backup your projects before updating.**** This custom firmware is a work in progress, so there will be bugs, regressions, etc. and your project data could be put at risk.
 
-2. ****Beta builds may contain destructive changes from build to build.**** Therefore I strongly recommend against working on anything critical on beta builds. If you want to live on the edge, please carefully read the [changelog](CHANGELOG.md) before each update.
+2. ****Beta builds may contain destructive changes from build to build.**** Therefore I strongly recommend against working on anything critical on beta builds. If you want to live on the edge, please carefully read the [changelog](CHANGELOG.md) before each update. (You can also try out development builds [here](https://downloads.junes.website/monomachine/dev/latest.syx), for testing only).
 
 3. ****SONG slots 13-24 have been removed to make room for extended data.**** If you have anything on those slots, back them up first, or move them to slots 1-12. Any SONG data remaining in slots 13-24 ****will become corrupted on boot****. Snapshot data stored on the +DRIVE is preserved, as long as you don't overwrite it while the custom firmware is installed.
 
