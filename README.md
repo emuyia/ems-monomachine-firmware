@@ -1,15 +1,3 @@
-# NOTICE
-
-> In light of Elektron's updated stance on custom firmware, and to be on the side of caution, I will not be uploading my firmwares as complete syx files anymore, and will be using a patcher approach going forward.
-> 
-> I kindly ask that people **do not** distribute my firmware as complete syx files going forward.
->
-> I will be removing syx files from my GitHub and website for the time being while I create a patcher, which I'm hoping to have ready in October as I'm really busy at the moment.
->
-> Thank you for your understanding 🙏
-> 
-> \- em
-
 # MANDATORY READING
 
 1. ****Please backup your projects before updating.**** This custom firmware is a work in progress, so there will be bugs, regressions, etc. and your project data could be put at risk.
