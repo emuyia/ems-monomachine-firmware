@@ -1,3 +1,90 @@
+## 26A09 beta
+
+### Changelog
+
+#### BBOX BANKS
+
+- Added BBOXBANKS, allowing you to store 32 custom BBOX sample banks on supported +Drive units, alongside the original STOCK bank
+  - Accessible from GLOBAL > FILE > BBOX. Banks are sent and received via SysEx
+  - Each bank contains 24 sample positions sharing approximately 2.86 seconds of audio. Sample lengths can differ
+  - Snapshots remember their assigned BBOX bank, and the snapshot browser displays that assignment
+  - +Drive usage and FORMAT DRIVE now include BBOX bank storage
+
+#### PATTERN / KIT WORKFLOW
+
+- Added shortcuts allowing you to copy, paste, clear and undo patterns other than the one currently loaded (BANK A-H + FUNC + TRIG + COPY/PASTE/CLEAR). Queued patterns are protected
+- Added a persistent MANAGE BANK A-H message while holding BANK + FUNC for inactive-pattern editing
+- Added CLONE PATTERN (BANK + FUNC + YES), which copies the current pattern into the next adjacent pattern slot and its live kit, including unsaved edits, into an available kit slot
+  - Stopped playback selects the copy immediately; running playback queues it for the next pattern change
+  - The destination pattern is overwritten. The source kit's saved contents are left unchanged
+  - The copied kit is renamed automatically: KIT026 becomes KIT027, TEST-A becomes TEST-B, and TEST becomes TEST2
+- Added empty pattern insertion shortcuts (BANK + FUNC + LEFT / RIGHT). These move the neighbouring run of occupied patterns towards an empty slot, making room on that side of the current pattern. SONG references and explicit program overrides follow the moved patterns
+- Added track swapping in EDIT KIT (FUNC + LEFT / RIGHT). Track sounds, sequence data and associated settings move together across patterns using that kit
+- Added shortcuts in KIT LOAD/SAVE to jump to the previous or next empty or unassigned kit slot (FUNC + PAGE UP / PAGE DOWN)
+- Fixed stock bug where clearing a track in EDIT KIT sets GND>SIN's TUNE to -64 instead of 0 ([#71](../../issues/71))
+
+#### PARAMETER PAGES / TRIGS
+
+- Added Trig Preview (hold a TRIG + TRIG SELECT), allowing you to audition a stored synth trig with its parameter locks ([#48](../../discussions/48))
+- Added parameter-page copy, paste, clear and undo (hold PAGE UP or PAGE DOWN + COPY/PASTE/CLEAR). These act on the eight parameters of the current page; repeating PASTE or CLEAR performs undo ([#45](../../discussions/45))
+- Added parameter-page randomisation (PAGE UP or PAGE DOWN + YES) ([#49](../../discussions/49))
+- Added parameter-page 'drunk' adjustment (PAGE UP or PAGE DOWN + NO), which moves each eligible parameter up or down by a small random amount
+  - Drunk adjustment leaves AMP VOL and synth LFO PAGE, DEST, TRIG and WAVE unchanged, and keeps AMP DIST at 0 or above. MIDI LFO PAGE and DEST are also excluded
+- Sequencer page copy, paste, clear and undo now respect TRIG SELECT, affecting only the selected AMP, FILTER or LFO trig positions. ALL retains the complete-page action
+- Sequencer page actions now operate on SWING or SLIDE trigs while their respective panels are open, with matching COPY/PASTE/CLEAR/UNDO messages
+- Improved ARP parameter display responsiveness during playback
+- ASSGN tab navigation now wraps from the first tab to the last and vice versa
+
+#### TRACK / PATTERN SETUP / TRANSPOSE
+
+- Split TRACK in WRAP AFTER and CHAIN AFTER into SHORTEST and LONGEST. These follow the shortest or longest track's effective length, taking its speed into account. PTTRN SETUP shows the followed track and its length
+- Added LONG/SHORT MODE to GLOBAL > SEQ > PATTERN SETUP, with options ALL TRKS, IGNORE MUTED, IGNORE MIDI and IGNORE BOTH. These determine which tracks SHORTEST and LONGEST consider
+- Added new SCALE options to the TRANSPOSE menu: MHA, MME, DOR, PHR, LYD, MIX, LOC and EDO
+  - When EDO is selected, KEY becomes TET, with divisions of 5, 7, 8, 9, 11, 13, 17, 19, 22, 23, 24 and 31
+  - EDO tuning applies to internal synth tracks; MIDI tracks retain ordinary MIDI notes
+- Fixed changing TRACK CONDITION removing explicit trig conditions that temporarily match the track default
+- Fixed trig-condition handling for FILTER, LFO, NOTE OFF and trigless trigs
+
+#### SONG MODE
+
+- Added a selectable ROW column as the default EDIT SONG focus
+- Added PRG OVERRIDE (YES on the PAT field in EDIT SONG). Each row can send up to four program changes on independently configurable MIDI channels
+- Added a shortcut to duplicate a SONG row together with its pattern and kit into available slots (FUNC + LEFT in EDIT SONG). Empty slots are preferred. Other slots unused by the current SONG may be overwritten after confirmation
+- Added a SONG duration estimate in EDIT SONG. Infinite LOOP/JUMP/HALT sections are not included
+- Updated EDIT SONG layout, with smaller ROW/PAT text and revised column spacing
+- The focused row's assigned kit is now shown in the EDIT SONG title
+- The main SONG screen now previews the hovered row's kit name alongside the song name
+- Added quick access to EDIT SONG at the currently highlighted row (FUNC + PAGE UP + PAGE DOWN from the main SONG screen)
+- Added main SONG screen navigation shortcuts:
+  - FUNC + UP / DOWN moves four rows at a time
+  - FUNC + PAGE UP / PAGE DOWN jumps to the first / END row
+  - FUNC + either PAGE key + UP / DOWN finds the previous / next row using the currently loaded pattern
+- Added EDIT SONG navigation shortcuts:
+  - FUNC + LEV scrolls rows; clicking LEV scrolls four rows at a time
+  - FUNC + PAGE UP or PAGE DOWN jumps to playing row
+- Improved EDIT SONG parameter-editing responsiveness
+- SONG row BPM editing and display now use the supported playback range of 30-300 BPM, plus the unset value ([#57](../../issues/57))
+- Fixed the playing-row arrow disappearing during short SONG loops ([#59](../../issues/59))
+- Fixed PAGE LEDs indicating the wrong page at SONG OFS/LEN boundaries ([#60](../../issues/60))
+- Fixed adding or removing a trig in EDIT SONG causing the next parameter edit to jump ([#72](../../issues/72))
+- Fixed stale SONG row information after loading a snapshot
+- Fixed LEV's value not appearing when enabling SONG mode with MULTI ENV or TEMPO open
+
+#### MIDI / AUDIO ROUTING
+
+- Added MD Link, allowing a compatible Machinedrum firmware to follow the Monomachine's SONG pattern changes and row positions, including OFS & LEN positions
+- Added MIDI ECHO in GLOBAL > SEQ > MIDI ROUTING. OFF disables retransmission of incoming live MIDI messages while retaining MIDI input, recording, sequencer output, clock and transport. The setting is saved per GLOBAL and defaults to ON
+- Added an A/B input level in GLOBAL > AUDIO > ROUTING, allowing you to monitor the inputs without an INP machine. Use RIGHT to focus it and LEV to adjust; clicked LEV moves in larger steps, and OFF mutes the input mix
+- Improved MIDI sequencer and arpeggiator timing
+
+#### OTHER
+
+- Added text-input shortcuts: FUNC + NO removes the previous character and FUNC + CLEAR clears the field ([#44](../../discussions/44))
+- Fixed stock bug where leaving the snapshot manager through the KIT shortcut could cause later COPY/PASTE/CLEAR actions to attempt to operate on snapshots instead of the intended data
+- Added a crash screen showing the firmware build, fault address, registers and playback context when a processor exception is caught
+- Mitigated a crash when using CONTROL ALL
+- Further optimised RAM usage
+
 ## 26910 release
 
 ### Changelog
