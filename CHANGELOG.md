@@ -1,3 +1,121 @@
+## 26B09 beta
+
+### Changelog
+
+#### ARPEGGIATOR
+
+- Added parameter locks for SPD, MODE, PLAY, RNGE, OJMP and LEN, plus the AMP, FLT and LFO switches on synth tracks ([#64](../../discussions/64))
+  - With ARP open, REC on shows the normal sequencer trigs for lock editing; REC off retains the arpeggio rhythm and offset editor
+  - ARP locks share the existing 62-parameter lock capacity with normal parameter locks
+- Redesigned the ARP panel with separate AMP, FLT and LFO encoder controls and a visible LEN field controlled by LEV
+- Added CONTROL ALL for all available ARP parameters (FUNC + encoder)
+- Holding an ARP rhythm TRIG and pressing FUNC + UP / DOWN now changes its OFFS in octaves
+- Added a return animation for the ARP panel when OFFS closes
+
+#### TRIG CONDITIONS & MICROTIMING
+
+- Expanded trig conditions with all k:n ratios through 8:8, additional probabilities, PRE / !PR and NEI / !NE
+- Conditions can now affect trigs, parameter locks or both. Hold TRIG + TEMPO to change the target
+- Added microtiming for synth and MIDI trigs. Hold one or more TRIGs and press SCALE to open the editor, then use LEFT / RIGHT or LEV to adjust ([#62](../../discussions/62))
+  - Timing can be moved seven eighth-step increments earlier or later
+  - Press LEFT + RIGHT together to return to +0, or the timing inherited from a SWING trig
+  - Added a small 1px graphic at the bottom of the note panel to preview a microtimed value without opening the full microtiming panel
+- Trigs with a condition (or microtiming) now blink alongside parameter-locked trigs
+
+#### SEQUENCER / PARAMETER PAGES
+
+- Added multi-trig actions ([#41](../../discussions/41), [#31](../../issues/31)):
+  - Copy a group of trigs with their spacing, or paste one copied trig to every held destination
+  - Edit notes, chords, parameter locks and conditions across the held selection
+  - Lock and condition clear/undo actions apply to the held selection, with messages showing the affected trig count
+- Added page transposition (SCALE + UP / DOWN in REC mode). Add FUNC for octave steps ([#54](../../discussions/54))
+- Added melody duration changes (SCALE + FUNC + LEFT / RIGHT in REC mode), halving or doubling trig spacing, including microtiming, without changing track speed
+  - Keep SCALE held to reverse duration edits and recover the original trig positions; releasing SCALE commits the result
+  - Halving can add microtiming: step 8 becomes step 4 +4, and step 9 +4 becomes step 5 +2. Timing rounds to the nearest eighth-step
+- Added reload of the current parameter page from the saved kit (PARAM PAGE UP or PARAM PAGE DOWN + TEMPO)
+- Parameter-page LEDs now indicate locks on held trigs - other pages containing locks blink
+- The TRIG SELECT LEDs now indicate trig types present on held trigs
+- Updated SLIDE-view colours and lock blinking so slide trigs and parameter locks remain distinguishable
+- The trig keyboard now plays distinct notes in tonal scales rather than repeating corrected pitches
+- Corrected MHA and MME scale pitch mapping
+- Fixed stale trig LEDs after paste, clear, undo
+- FUNC + LEFT / RIGHT can now move notes in chords in octave steps ([#74](../../discussions/74))
+
+#### BBOX
+
+- Added a BBOX sample manager for receiving, sending, naming, erasing and auditioning individual samples
+  - Accessible from GLOBAL > FILE > BBOX MANAGER. Sample transfers support standard MIDI SDS and the shared compressed sample format used by compatible Machinedrum custom firmware
+  - COMPRESS BBOX SEND in +DRIVE SETTINGS chooses the outgoing format. Armed receive accepts either format
+  - Banks can be created, renamed, erased and locked. The factory STOCK bank remains immutable
+- Replaced the previous whole-bank BBOX SysEx exchange with sample transfers through BBOX MGR
+- Improved BBOX bank loading, startup restoration, sample transfers and menu responsiveness
+- Fixed a crash when switching BBOX banks
+- Improved +Drive compatibility for BBOX management ([#82](../../issues/82))
+- Added quick DigiBank and BBOX bank selection alongside the quick Snapshot selector (navigate with LEFT and RIGHT)
+
+### MACHINE CHANGES
+
+- Changes to DPRO>BBOX:
+  - STRT parameter changes now apply to subsequent retriggers without requiring a new note ([#37](../../discussions/37))
+  - STRT parameter now covers the full length of the sample instead of only half (this can be toggled in GLOBAL > AUDIO > BEHAVIOUR)
+  - Added new parameter END, supporting reverse playback
+- Added new machine: DPRO>SBOX, which selects a fixed sample independently of the note being played
+  - Includes chromatic playback, STRT, END, OFF/WRAP/PING looping and loop position
+  - C4 plays at the sample's original speed; C1 plays at one eighth of that speed
+  - STRT, END and loop-position changes can affect playback while a sample is running
+
+#### KIT & TRACK WORKFLOW
+
+- Added OSC RESET in KIT > TRIG > TRIG TRACK. This restarts oscillator phase on sound triggers ([#36](../../discussions/36))
+- Added PRE / POST filter routing for SRR. Hold FUNC + YES and turn SRR left or right to change its position without changing the amount
+- Added a shortcut to open EDIT KIT directly in Pattern mode (KIT + PARAM PAGE UP or DOWN)
+- You can now copy all TRACK SETUP params from PTTRN SETUP with PAGE + COPY. (A copied single TRACK SETUP can still be pasted to all tracks while viewing PTTRN SETUP, as before)
+- Track swapping (FUNC+LEFT/RIGHT while in EDIT KIT) no longer saves the kit automatically
+- Improved track swapping speed
+- Fixed track copying restarting playback ([#84](../../issues/84))
+- Fixed rapid TRACK and PAT transpose encoder turns accumulating incorrect changes, including during playback ([#79](../../issues/79))
+- Fixed LFO page operations and track swaps unintentionally changing LFO routing ([#87](../../issues/87))
+
+#### SONG MODE
+
+- Reworked EDIT SONG's XTR field, splitting them into BPM and MUT fields
+- Added a separate SONG mute editor, accessed with YES on the MUT field
+- Improved SONG row navigation, including circular navigation of rows using the loaded pattern, and preference for a queued row when opening the editor
+- Changed shortcut to open EDIT SONG at the currently selected row from FUNC + PAGE UP + PAGE DOWN to KIT + PAGE UP/DOWN
+- Fixed the SONG opening and closing animation dropping frames
+- Improved responsiveness of EDIT SONG panel, duration calculation and kit name preview
+- Fixed SONG parameter values becoming stale after changing tracks or parameter pages ([#80](../../issues/80))
+- Fixed SONG title-mask redraws when kit names change width
+- SONG row cloning now allocates unused explicit PRG OVERRIDE values independently for each output
+- Fixed PAGE indication at SONG row boundaries with non-1x track speeds, and track LED restoration between short rows ([#60](../../issues/60), [#81](../../issues/81))
+
+#### MIDI / GLOBAL
+
+- Added support for incoming SONG link messages, allowing Monomachine Pattern mode to follow another Monomachine's SONG row pattern, offset and length
+- Added USE P-LOCKS in GLOBAL > CONTROL > CONTROL IN. During playback, incoming MIDI notes can use the receiving track's parameter locks at its current sequencer step
+- Moved MIDI ECHO from MIDI ROUTING into CONTROL IN
+- Added OFF / TRK / TRIG / BOTH choices for TRACK LED BLINK, allowing track activity to appear on trig LEDs as well as the track LEDs
+- Added indicators beside parameters assigned to LFOs
+- Added CONTROL ALL value highlighting, shown while FUNC is held and cleared when FUNC is released
+- All menu navigation now has wrapping from last to first option and vice versa (blocked when doing accelerated navigation with FUNC)
+- Refined GLOBAL menu layout to acommodate more space
+
+#### OTHER
+
+- Firmware now uses compression to create more space; boot time is slower as a result
+- Added a screenshot SysEx request: `F0 00 20 3C 03 00 64 F7` returns sixteen messages, each `F0 00 20 3C 03 00 64 01 <chunk> <74 packed bytes> F7`, with `<chunk>` from `00` through `0F`, using Monomachine’s standard 7-bit SysEx encoding, decoding to 64 bytes. The decoded chunks can then be concatenated into a native Monomachine LCD bitmap layout (a 128×64, 1-bit bitmap stored column-major, bottom-to-top, MSB-first).
+- Further optimisations to RAM usage, CONTROL ALL, ARP editing, sequencer processing, SONG editing and BBOX actions
+
+#### UPDATING FROM 26A09
+
+- Existing kits with DPRO>BBOX are migrated to include the new param END set to 127
+- DPRO>BBOX's STRT param now defaults to covering full range of the sample (instead of only half). Choose LEGACY in GLOBAL > AUDIO > BEHAVIOUR to return the previous STRT range
+- Existing BBOX banks remain readable without erasure or conversion. Individual sample edits adopt the new bank format
+- Older whole-bank BBOX `.syx` backup files are no longer supported. To convert them you can either (1) import them on the previous beta 26A09, update the firmware to 26B09 or later, and then export via BBOX MGR > SEND > ALL, or (2) import the bank syx file to my legacy BBOX bank builder web app, export to SDS, and then import the SDS via BBOX MGR > RECEIVE
+- Existing P2 (20%) and P7 (70%) conditions become 25% and 75% respectively
+- Existing TRACK LED BLINK settings retain OFF / TRK. Select TRIG / BOTH to enable the new trig LED activity indication if desired
+- Track swapping no longer automatically saves the current Kit
+
 ## 26A09 beta
 
 ### Changelog
