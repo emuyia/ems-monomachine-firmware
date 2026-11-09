@@ -39,7 +39,7 @@
 - The trig keyboard now plays distinct notes in tonal scales rather than repeating corrected pitches
 - Corrected MHA and MME scale pitch mapping
 - Fixed stale trig LEDs after paste, clear, undo
-- FUNC + LEFT / RIGHT can now move notes in chords in octave steps ([#74](../../discussions/74))
+- FUNC + LEFT / RIGHT can now move notes in chords in octave steps
 
 #### BBOX
 
